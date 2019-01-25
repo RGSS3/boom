@@ -1,3 +1,20 @@
+# Seiran Version
+
+You can record your boom ending with a '$' sign, making it a Tencent QQ emotional image.
+```shell
+boom emo a$ C:\some.gif
+```
+This gif can be dragged from somewhere else, so you don't have to type it entirely
+
+
+Later, 
+```shell
+boom a$
+```
+
+It's copied to the clipboard as a Tencent QQ flavoured GIF.
+# Origin Info
+
 # B O O M
 
 ## About

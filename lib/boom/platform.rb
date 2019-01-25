@@ -84,13 +84,18 @@ module Boom
       #
       # Returns the String value of the Item.
       def copy(item)
-        begin
-          IO.popen(copy_command,"w") {|cc|  cc.write(item.value)}
-          item.value
-        rescue Errno::ENOENT
-          puts item.value
-          puts "Please install #{copy_command[0..5]} to copy this item to your clipboard"
-          exit
+        if item.name.end_with?('$')
+          Boom::SeiranCopy.qqimage(item.value[1])
+          "Image #{item.value[0]}"
+        else
+          begin
+            IO.popen(copy_command,"w") {|cc|  cc.write(item.value)}
+            item.value
+          rescue Errno::ENOENT
+            puts item.value
+            puts "Please install #{copy_command[0..5]} to copy this item to your clipboard"
+            exit
+          end
         end
       end
 

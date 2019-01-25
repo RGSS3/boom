@@ -29,13 +29,12 @@ module Boom
             end
 
 
-            o = O.new
             flag = o.RegisterClipboardFormat("QQ_RichEdit_Format")
-            str = o.GlobalAlloc(66, TEXT.length)
+            str = o.GlobalAlloc(66, text.length)
             if str != 0
                 mem = o.GlobalLock(str)
                 if mem != 0
-                    o.RtlMoveMemory(mem, TEXT, TEXT.length)
+                    o.RtlMoveMemory(mem, text, text.length)
                     o.GlobalUnlock(str)
                 else 
                     raise "Lock Failed"

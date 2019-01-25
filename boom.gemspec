@@ -85,6 +85,7 @@ Gem::Specification.new do |s|
     lib/boom/list.rb
     lib/boom/platform.rb
     lib/boom/storage.rb
+    lib/boom/seirancopy.rb
     test/cli.sh
     test/examples/data.json
     test/item.sh
