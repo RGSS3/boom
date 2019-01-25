@@ -266,10 +266,20 @@ module Boom
       #
       # Returns the newly created Item.
       def add_item(list,name,value)
-        list = List.find(list)
-        list.add_item(Item.new(name,value))
-        output "#{cyan("Boom!")} #{yellow(name)} in #{yellow(list.name)} is #{yellow(value)}. Got it."
-        save
+        if !name.end_with?("$")
+          list = List.find(list)
+          list.add_item(Item.new(name,value))
+          output "#{cyan("Boom!")} #{yellow(name)} in #{yellow(list.name)} is #{yellow(value)}. Got it."
+          save
+        else
+          list = List.find(list)
+          s = Dir.glob(Boom::Storage::IMAGE + "/*.*").size + 1
+          fname = "#{Boom::Storage::IMAGE}/#{s}.jpg"
+          IO.binwrite fname, IO.binread(value)
+          list.add_item(Item.new(name,[value, fname]))
+          output "#{cyan("Boom!")} #{yellow(name)} in #{yellow(list.name)} is #{yellow(value)}. Got it."
+          save
+        end
       end
 
       # Public: remove a named Item.

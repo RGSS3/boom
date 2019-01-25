@@ -16,6 +16,7 @@ require 'boom/command'
 require 'boom/item'
 require 'boom/list'
 require 'boom/storage'
+require 'boom/seirancopy'
 
 require 'boom/core_ext/symbol'
 

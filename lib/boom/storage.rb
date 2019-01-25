@@ -5,7 +5,10 @@
 module Boom
   class Storage
     JSON_FILE = "#{ENV['HOME']}/.boom"
-
+    IMAGE = "#{ENV['HOME']}/.boomimg"
+    unless FileTest.directory?(IMAGE)
+      Dir.mkdir IMAGE
+    end
     # Public: the path to the Json file used by boom.
     #
     # Returns the String path of boom's Json representation.

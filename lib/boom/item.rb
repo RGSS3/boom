@@ -11,7 +11,6 @@ module Boom
 
     # Public: the String value of the Item
     attr_accessor :value
-
     # Public: creates a new Item object.
     #
     # name  - the String name of the Item
