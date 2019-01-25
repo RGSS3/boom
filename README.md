@@ -3,6 +3,7 @@
 You can record your boom ending with a '$' sign, making it a Tencent QQ emotional image.
 ```shell
 boom emo a$ C:\some.gif
+boom emo b$ http://some-site/some.gif
 ```
 This gif can be dragged from somewhere else, so you don't have to type it entirely
 
@@ -13,6 +14,15 @@ boom a$
 ```
 
 It's copied to the clipboard as a Tencent QQ flavoured GIF.
+
+
+If you're just forwarding a GIF from the Browser:
+```shell
+boom direct http://some-site/some.gif
+boom i http://some-site/some.gif
+```
+is just OK
+
 # Origin Info
 
 # B O O M

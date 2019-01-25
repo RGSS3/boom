@@ -81,6 +81,12 @@ module Boom
         end
       end
 
+      def direct(url)
+        create_list("temp")
+        add_item("temp", "temp$", url)
+        copy("temp", "temp$")
+      end
+
       # Public: allows main access to most commands.
       #
       # Returns output based on method calls.
@@ -94,6 +100,7 @@ module Boom
         return echo(major,minor) if command == 'echo' || command == 'e'
         return copy(major,minor) if command == 'copy' || command == 'c'
         return open(major,minor) if command == 'open' || command == 'o'
+        return direct(major) if command == 'direct' || command == 'i'
         return random(major)     if command == 'random' || command == 'rand' || command == 'r'
 
         if command == 'delete' || command == 'd'
@@ -275,7 +282,14 @@ module Boom
           list = List.find(list)
           s = Dir.glob(Boom::Storage::IMAGE + "/*.*").size + 1
           fname = "#{Boom::Storage::IMAGE}/#{s}.jpg"
-          IO.binwrite fname, IO.binread(value)
+          require 'net/http'
+          if value.start_with?("http://")
+            IO.binwrite fname, Net::HTTP.get(URI(value))  
+          elsif value.start_with?("https://")
+            IO.binwrite fname, Net::HTTP.get(URI(value))  
+          else
+            IO.binwrite fname, IO.binread(value)
+          end
           list.add_item(Item.new(name,[value, fname]))
           output "#{cyan("Boom!")} #{yellow(name)} in #{yellow(list.name)} is #{yellow(value)}. Got it."
           save
@@ -374,6 +388,7 @@ module Boom
           boom <list>                   create a new list
           boom <list>                   show items for a list
           boom delete <list>            deletes a list
+          
 
           boom <list> <name> <value>    create a new list item
           boom <name>                   copy item's value to clipboard
@@ -387,6 +402,9 @@ module Boom
           boom copy <name>              copy the item's value without echo
           boom copy <list> <name>       copy the item's value without echo
           boom delete <list> <name>     deletes an item
+
+          boom direct <url>             directly copy an image to clipboard
+          
 
           all other documentation is located at:
             https://github.com/holman/boom
